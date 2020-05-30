@@ -1,3 +1,24 @@
+logging:
+  level:
+    web: debug
+
+hapi:
+  fhir:
+    version: dstu3
+    server:
+      path: /fhir/*
+      
+    rest:
+      server-name: fhir-boot
+      server-version: 1.0.0
+      implementation-description: Spring Boot Fhir Server Sample
+      default-response-encoding: xml
+      e-tag-support: enabled
+      default-pretty-print: true
+      
+    validation:
+      enabled: true
+      request-only: true
 
 server:
   port: 8080
