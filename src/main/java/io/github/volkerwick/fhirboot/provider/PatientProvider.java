@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hl7.fhir.dstu3.model.HumanName;
 import org.hl7.fhir.dstu3.model.IdType;
 import org.hl7.fhir.dstu3.model.Patient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import ca.uhn.fhir.rest.annotation.Create;
@@ -24,9 +25,15 @@ import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.param.StringParam;
 import ca.uhn.fhir.rest.server.IResourceProvider;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+import io.github.volkerwick.fhirboot.utility.Utility;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Slf4j
 public class PatientProvider implements IResourceProvider {
+
+    @Autowired
+    private Utility utility;
 
     @Override
     public Class<Patient> getResourceType() {
@@ -40,10 +47,16 @@ public class PatientProvider implements IResourceProvider {
     }
 
     @Read
-    public Patient find(@IdParam final IdType theId) {
+    public Patient read(@IdParam final IdType theId) {
+
+        utility.test();
+
+        log.info("##### entering Patient.read()");
         if (patientRepo.containsKey(theId.getIdPart())) {
+            log.info("##### exitinging Patient.read()");
             return patientRepo.get(theId.getIdPart());
         } else {
+            log.info("##### aborting Patient.read()");
             throw new ResourceNotFoundException(theId);
         }
     }
