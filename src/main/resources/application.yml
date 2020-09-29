@@ -22,3 +22,8 @@ hapi:
 
 server:
   port: 8080
+
+bannedUserAgents:
+  - evil-client
+  - nasty-app
+  - forbidden-agent

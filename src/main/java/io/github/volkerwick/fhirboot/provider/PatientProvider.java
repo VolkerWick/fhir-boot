@@ -25,12 +25,16 @@ import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.param.StringParam;
 import ca.uhn.fhir.rest.server.IResourceProvider;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+import io.github.volkerwick.fhirboot.configuration.BannedUserAgents;
 import io.github.volkerwick.fhirboot.utility.Utility;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @Slf4j
 public class PatientProvider implements IResourceProvider {
+
+    @Autowired
+    private BannedUserAgents bannedUserAgents;
 
     @Autowired
     private Utility utility;
@@ -48,6 +52,8 @@ public class PatientProvider implements IResourceProvider {
 
     @Read
     public Patient read(@IdParam final IdType theId) {
+
+        log.info("Banned user agents : \"{}\"", bannedUserAgents.getBannedUserAgents());
 
         utility.test();
 

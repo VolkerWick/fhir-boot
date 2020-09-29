@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "bannedUserAgents",
+  "type": "java.lang.String[]",
+  "description": "List of banned user agents"
+}]}
